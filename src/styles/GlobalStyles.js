@@ -26,6 +26,9 @@ button{
     &:hover{
         background-color: #23d997;
     }
+    &:focus{
+        outline: none;
+    }
 }
 h2{
     font-weight:lighter;

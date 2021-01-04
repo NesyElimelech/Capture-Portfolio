@@ -1,8 +1,10 @@
 import React from 'react';
 // Import image
 import home1 from '../img/home1.png';
-// import Styled Components
+// import Styles
 import { Layout, Description, Hide, Image } from '../styles/LayoutStyles';
+// Framer Motion
+// import { motion } from 'framer-motion';
 
 const AboutSection = () => {
   return (
