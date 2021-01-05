@@ -5,6 +5,9 @@ import { MovieState } from '../movieState';
 import Award from '../components/Award';
 // Import Styled Components
 import styled from 'styled-components';
+// Animations
+import { motion } from 'framer-motion';
+import { pageAnimation } from '../animation';
 
 const MovieDetail = () => {
   // Gets the URL we came from and compare it to the movie url
@@ -23,7 +26,12 @@ const MovieDetail = () => {
     //   Wait till we have the information from the movie and then render it out
     <>
       {movie && (
-        <Details>
+        <Details
+          variants={pageAnimation}
+          initial="hidden"
+          animate="show"
+          exit="exit"
+        >
           <HeadLine>
             <h2>{movie.title}</h2>
             <img src={movie.mainImg} alt="Movie posters" />
@@ -46,7 +54,7 @@ const MovieDetail = () => {
   );
 };
 
-const Details = styled.div`
+const Details = styled(motion.div)`
   color: #fff;
 `;
 const HeadLine = styled.div`
