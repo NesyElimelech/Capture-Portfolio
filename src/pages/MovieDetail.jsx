@@ -14,7 +14,7 @@ const MovieDetail = () => {
   // Gets the URL we came from and compare it to the movie url
   const history = useHistory();
   const url = history.location.pathname;
-  const [movies, setMovies] = useState(MovieState);
+  const [movies] = useState(MovieState);
   const [movie, setMovie] = useState(null);
   const [element, controls] = useScroll();
   const [element2, controls2] = useScroll();
