@@ -8,11 +8,14 @@ import teamwork from '../img/teamwork.svg';
 import home2 from '../img/home2.png';
 // Import styles
 import styled from 'styled-components';
+import { fade } from '../animation';
 import { Layout, Description, Image } from '../styles/LayoutStyles';
+import { useScroll } from './useScroll';
 
 const ServicesSection = () => {
+  const [element, controls] = useScroll();
   return (
-    <Services>
+    <Services variants={fade} ref={element} animate={controls} initial="hidden">
       <Description>
         <h2>
           High <span>quality</span> services{' '}
@@ -57,24 +60,45 @@ const ServicesSection = () => {
 
 // Styled Components
 const Services = styled(Layout)`
-  /* flex-direction: row-reverse; */
-
+  flex-direction: row-reverse;
+  @media screen and (max-width: 1300px) {
+    flex-direction: column;
+    justify-content: center;
+  }
   h2 {
     padding-bottom: 5rem;
+    margin-left: 4rem;
+    @media screen and (max-width: 1300px) {
+      margin-left: 0;
+      font-size: 2.5rem;
+    }
   }
   p {
     width: 70%;
     padding: 2rem 0 4rem 0;
+    margin-left: 4rem;
   }
 `;
 
 const Cards = styled.div`
   display: flex;
+  margin-left: 4rem;
   flex-wrap: wrap;
+  @media screen and (max-width: 1370px) {
+    margin-left: 0;
+    padding: 1rem auto;
+    justify-content: center;
+  }
 `;
 
 const Card = styled.div`
   flex-basis: 20rem;
+
+  @media screen and (max-width: 1300px) {
+    flex-basis: 7rem;
+    margin: 1rem;
+    justify-content: center;
+  }
   .icon {
     display: flex;
     align-items: center;

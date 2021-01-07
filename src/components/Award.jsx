@@ -1,17 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
+import { lineAnim } from '../animation';
+import { useScroll } from './useScroll';
 
 const Award = ({ title, description }) => {
+  const [element, controls] = useScroll();
   return (
     <AwardStyle>
       <h3>{title}</h3>
-      <div className="line"></div>
+      <motion.div
+        ref={element}
+        variants={lineAnim}
+        initial="hidden"
+        animate={controls}
+        className="line"
+      ></motion.div>
       <p>{description}</p>
     </AwardStyle>
   );
 };
 
-const AwardStyle = styled.div`
+const AwardStyle = styled(motion.div)`
   padding: 5rem;
   h3 {
     font-size: 2rem;

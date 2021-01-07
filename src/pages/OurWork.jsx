@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Movie from '../components/Movie';
+// Import Styles
 import styled from 'styled-components';
+import { Hide } from '../styles/LayoutStyles';
 // Import images
 import athlete from '../img/athlete-small.png';
 import theracer from '../img/theracer-small.png';
@@ -9,11 +12,12 @@ import goodtimes from '../img/goodtimes-small.png';
 import { motion } from 'framer-motion';
 import {
   pageAnimation,
-  fade,
-  photoAnim,
-  lineAnim,
   slider,
   sliderContainer,
+  titleAnim,
+  lineAnim,
+  photoAnim,
+  fade,
 } from '../animation';
 
 const OurWork = () => {
@@ -31,37 +35,25 @@ const OurWork = () => {
         <Frame3 variants={slider}></Frame3>
         <Frame4 variants={slider}></Frame4>
       </motion.div>
-      <Movie>
-        <motion.h2 variants={fade}>The Athlete</motion.h2>
-        <motion.div variants={lineAnim} className="line"></motion.div>
-        <Link to="/work/the-athlete">
-          <Hide>
-            <motion.img variants={photoAnim} src={athlete} alt="A Boxer" />
-          </Hide>
-        </Link>
-      </Movie>
-      <Movie>
-        <motion.h2 variants={fade}>The Racer</motion.h2>
-        <motion.div variants={lineAnim} className="line"></motion.div>
-        <Link to="/work/the-racer">
-          <Hide>
-            <motion.img
-              variants={photoAnim}
-              src={theracer}
-              alt="A Woman next to a car"
-            />
-          </Hide>
-        </Link>
-      </Movie>
-      <Movie>
-        <motion.h2 variants={fade}>Good Times</motion.h2>
-        <motion.div variants={lineAnim} className="line"></motion.div>
-        <Link to="/work/good-times">
-          <Hide>
-            <motion.img variants={photoAnim} src={goodtimes} alt="A Couple" />
-          </Hide>
-        </Link>
-      </Movie>
+      <FirstMovie variants={fade}>
+        <Hide>
+          <motion.h2 variants={titleAnim}>The Athlete</motion.h2>
+          <motion.div variants={lineAnim} className="line"></motion.div>
+          <Link to="/work/the-athlete">
+            <motion.img variants={photoAnim} src={athlete} alt="athlete" />
+          </Link>
+        </Hide>
+      </FirstMovie>
+      <Movie
+        title="The Racer"
+        goesTo="/work/the-racer"
+        imgSrc={theracer}
+      ></Movie>
+      <Movie
+        title="Good Times"
+        goesTo="/work/good-times"
+        imgSrc={goodtimes}
+      ></Movie>
     </Work>
   );
 };
@@ -70,9 +62,11 @@ const Work = styled(motion.div)`
   min-height: 100vh;
   overflow: hidden;
   padding: 5rem 10rem;
+  @media screen and (max-width: 1300px) {
+    padding: 1rem 2rem;
+  }
 `;
-
-const Movie = styled.div`
+const FirstMovie = styled(motion.div)`
   padding-bottom: 10rem;
   h2 {
     padding: 1rem 0;
@@ -87,10 +81,6 @@ const Movie = styled.div`
     height: 70vh;
     object-fit: cover;
   }
-`;
-
-const Hide = styled.div`
-  overflow: hidden;
 `;
 
 // Frame animation

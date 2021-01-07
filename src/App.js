@@ -1,5 +1,6 @@
 import React from 'react';
 import Nav from './components/Nav';
+import ScrollTop from './components/ScrollTop';
 //  Global styles
 import GlobalStyles from './styles/GlobalStyles';
 // Import pages
@@ -17,6 +18,7 @@ function App() {
   return (
     <div className="App">
       <GlobalStyles />
+      <ScrollTop />
       <Nav />
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location.pathname}>

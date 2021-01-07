@@ -7,7 +7,8 @@ import Award from '../components/Award';
 import styled from 'styled-components';
 // Animations
 import { motion } from 'framer-motion';
-import { pageAnimation } from '../animation';
+import { pageAnimation, photoAnim, titleAnim, fade } from '../animation';
+import { useScroll } from '../components/useScroll';
 
 const MovieDetail = () => {
   // Gets the URL we came from and compare it to the movie url
@@ -15,7 +16,9 @@ const MovieDetail = () => {
   const url = history.location.pathname;
   const [movies, setMovies] = useState(MovieState);
   const [movie, setMovie] = useState(null);
-
+  const [element, controls] = useScroll();
+  const [element2, controls2] = useScroll();
+  const [element3, controls3] = useScroll();
   // Every time the movies array or the url is changed, update the current movie.
   useEffect(() => {
     const currentMovie = movies.filter((stateMovie) => stateMovie.url === url);
@@ -32,11 +35,23 @@ const MovieDetail = () => {
           animate="show"
           exit="exit"
         >
-          <HeadLine>
-            <h2>{movie.title}</h2>
+          <HeadLine
+            ref={element}
+            animate={controls}
+            initial="hidden"
+            variants={fade}
+          >
+            <motion.h2 variants={titleAnim} initial="hidden" animate="show">
+              {movie.title}
+            </motion.h2>
             <img src={movie.mainImg} alt="Movie posters" />
           </HeadLine>
-          <Awards>
+          <Awards
+            ref={element2}
+            animate={controls2}
+            initial="hidden"
+            variants={pageAnimation}
+          >
             {movie.awards.map((award) => (
               <Award
                 title={award.title}
@@ -46,7 +61,14 @@ const MovieDetail = () => {
             ))}
           </Awards>
           <ImageDisplay>
-            <img src={movie.secondaryImg} alt="Movie posters" />
+            <motion.img
+              ref={element3}
+              animate={controls3}
+              initial="hidden"
+              variants={photoAnim}
+              src={movie.secondaryImg}
+              alt="Movie posters"
+            />
           </ImageDisplay>
         </Details>
       )}
@@ -56,38 +78,64 @@ const MovieDetail = () => {
 
 const Details = styled(motion.div)`
   color: #fff;
+  @media screen and (max-width: 1300px) {
+    padding: 1rem 0rem;
+  }
 `;
-const HeadLine = styled.div`
-  min-width: 90vh;
-  padding-top: 20vh;
+const HeadLine = styled(motion.div)`
+  min-width: 100vh;
+  min-height: 100vh;
   position: relative;
+
   h2 {
+    font-size: 8rem;
     position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, -10%);
+    top: 50%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    text-shadow: 7px 7px 10px rgba(0, 0, 0, 0.5);
+    @media screen and (max-width: 1300px) {
+      font-size: 3.5rem;
+      left: 20%;
+    }
   }
   img {
     width: 100%;
-    height: 70vh;
+    height: 100vh;
     object-fit: cover;
+    @media screen and (max-width: 1300px) {
+      object-fit: cover;
+    }
+  }
+  @media screen and (max-width: 1300px) {
+    min-width: 80vw;
   }
 `;
 
-const Awards = styled.div`
+const Awards = styled(motion.div)`
   min-height: 80vh;
   display: flex;
   margin: 5rem 10rem;
   align-items: center;
   justify-content: space-around;
+  @media screen and (max-width: 1300px) {
+    display: block;
+    margin: 2rem 2rem;
+  }
 `;
 
-const ImageDisplay = styled.div`
-  min-height: 50vh;
+const ImageDisplay = styled(motion.div)`
+  overflow: hidden;
+  @media screen and (max-width: 1300px) {
+    padding: 0 0;
+  }
   img {
     width: 100%;
-    height: 100vh;
     object-fit: cover;
+    overflow: hidden;
+    @media screen and (max-width: 1300px) {
+      object-fit: cover;
+    }
   }
 `;
 
